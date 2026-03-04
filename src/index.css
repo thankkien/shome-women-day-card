@@ -2,7 +2,7 @@
 
 @theme {
   --font-heading: "Dancing Script", cursive;
-  --font-body: "Inter", system-ui, sans-serif;
+  --font-body: "Dancing Script", system-ui, sans-serif;
   --color-bg-main: #F2D9D5;
   --color-envelope-body: #F4B8A8;
   --color-envelope-flap: #E8A090;

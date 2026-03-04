@@ -1,86 +1,88 @@
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion";
+import { getLetterBody } from "../helpers/getLetterBody";
 
 const lines = [
-  { text: 'Chúc Mừng Ngày', isHeading: true },
-  { text: 'Quốc Tế Phụ Nữ 8/3', isHeading: true },
-  { text: '───── ✿ ─────', isDivider: true },
-  { text: 'Gửi đến các chị em thân mến,', isBody: true },
-  { text: 'Nhân ngày 8/3, xin gửi đến các chị em', isBody: true },
-  { text: 'những lời chúc tốt đẹp nhất.', isBody: true },
-  { text: 'Chúc các chị em luôn tỏa sáng,', isBody: true },
-  { text: 'hạnh phúc và thành công! 🌸', isBody: true },
-]
+  { text: "Gửi đến một nửa", isHeading: true },
+  { text: "YÊU THƯƠNG của S.Home❤️", isHeading: true },
+  { text: "───── ✿ ─────", isDivider: true },
+  ...getLetterBody(),
+];
 
 const containerVariants = {
   hidden: {},
   visible: {
-    transition: {
-      staggerChildren: 0.18,
-      delayChildren: 0.2,
-    },
+    transition: { staggerChildren: 0.14, delayChildren: 0.1 },
   },
-}
+};
 
 const lineVariants = {
-  hidden: { opacity: 0, y: 15 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: 'easeOut' },
-  },
-}
+  hidden: { opacity: 0, y: 10 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+};
 
+/* Letter always renders its card shell.
+   `show` gates whether text content is visible. */
 export default function Letter({ show }) {
-  if (!show) return null
-
   return (
-    <motion.div
-      className="letter-paper rounded-2xl px-6 py-8 sm:px-8 sm:py-10 w-full max-w-xs sm:max-w-sm mx-auto text-center"
-      initial={{ opacity: 0, y: 60 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, ease: 'easeOut' }}
+    <article
+      className="letter-paper rounded-2xl text-center shadow-inner"
+      style={{
+        width: "100%",
+        maxWidth: "340px",
+        padding: "1.5rem 1rem",
+        minHeight: "360px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        boxSizing: "border-box",
+      }}
+      aria-label="Thiệp chúc mừng ngày Quốc tế Phụ nữ"
     >
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        {lines.map((line, i) => {
-          if (line.isHeading) {
-            return (
-              <motion.h1
-                key={i}
-                variants={lineVariants}
-                className="font-heading text-text-heading text-2xl sm:text-3xl font-bold leading-tight"
-                style={{ textWrap: 'balance' }}
-              >
-                {line.text}
-              </motion.h1>
-            )
-          }
-          if (line.isDivider) {
+      {show && (
+        <motion.div
+          className="w-full"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {lines.map((line, i) => {
+            if (line.isHeading) {
+              return (
+                <motion.h1
+                  key={i}
+                  variants={lineVariants}
+                  className="font-heading text-text-heading text-2xl sm:text-3xl font-bold leading-tight"
+                  style={{ textWrap: "balance" }}
+                >
+                  {line.text}
+                </motion.h1>
+              );
+            }
+            if (line.isDivider) {
+              return (
+                <motion.p
+                  key={i}
+                  variants={lineVariants}
+                  className="text-petal-pink text-xl my-3"
+                  aria-hidden="true"
+                >
+                  {line.text}
+                </motion.p>
+              );
+            }
             return (
               <motion.p
                 key={i}
                 variants={lineVariants}
-                className="text-petal-pink text-lg my-3"
-                aria-hidden="true"
+                className="font-body text-text-body text-lg sm:text-md leading-relaxed"
               >
                 {line.text}
               </motion.p>
-            )
-          }
-          return (
-            <motion.p
-              key={i}
-              variants={lineVariants}
-              className="font-body text-text-body text-sm sm:text-base leading-relaxed"
-            >
-              {line.text}
-            </motion.p>
-          )
-        })}
-      </motion.div>
-    </motion.div>
-  )
+            );
+          })}
+        </motion.div>
+      )}
+    </article>
+  );
 }

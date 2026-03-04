@@ -18,7 +18,7 @@ export default function BubbleHint({ visible }) {
         transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
         className="inline-block"
       >
-        Bấm để mở ✉️
+        Touch💌
       </motion.span>
     </motion.div>
   )
