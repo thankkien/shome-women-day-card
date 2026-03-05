@@ -9,11 +9,11 @@ const validIndexes = (idx) =>
   typeof idx === "number" && idx >= 0 && idx < length;
 
 const storeToLocalStorage = (idx) => {
-  localStorage.setItem("letterIndex", idx);
+  localStorage.setItem("letterIndex", JSON.stringify(idx ?? null));
 };
 
 const getFromLocalStorage = () => {
-  const idx = Number(localStorage.getItem("letterIndex"));
+  const idx = JSON.parse(localStorage.getItem("letterIndex"));
   return validIndexes(idx) ? idx : null;
 };
 
