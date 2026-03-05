@@ -1,12 +1,19 @@
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion";
 
 export default function BubbleHint({ visible }) {
-  if (!visible) return null
+  if (!visible) return null;
 
   return (
     <motion.div
-      className="absolute z-30 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm shadow-md text-text-heading font-medium text-sm sm:text-base"
-      style={{ top: '-60px', left: '50%', x: '-50%' }}
+      className="absolute z-30 px-4 py-2 rounded-full font-medium text-base sm:text-lg"
+      style={{
+        top: "-60px", left: "50%", x: "-50%", textWrap: "nowrap",
+        background: "rgba(255,255,255,0.55)",
+        backdropFilter: "blur(8px)",
+        border: "1px solid rgba(255,255,255,0.7)",
+        color: "#b05070",
+        boxShadow: "0 2px 12px rgba(180,80,100,0.12)",
+      }}
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
@@ -15,11 +22,11 @@ export default function BubbleHint({ visible }) {
     >
       <motion.span
         animate={{ scale: [1, 1.06, 1] }}
-        transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
         className="inline-block"
       >
-        Touch💌
+        Chạm vào yêu thương💌
       </motion.span>
     </motion.div>
-  )
+  );
 }

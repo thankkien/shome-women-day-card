@@ -32,17 +32,17 @@ export default function App() {
 
   const handleReset = useCallback(() => {
     setStage(0);
-    setResetKey(k => k + 1);
+    setResetKey((k) => k + 1);
   }, []);
 
-  const isOpened     = stage >= 1;
-  const showFlowers  = stage >= 1;
+  const isOpened = stage >= 1;
+  const showFlowers = stage >= 1;
   const showFloating = stage >= 1;
 
   // Letter top = logo (48px) + gap (12px) = 60px từ top
   // letter_half = 180px (minHeight 360px / 2)
   // y offset từ screen center = 60 + 180 - window.innerHeight/2
-  const stage4Y = 48 + 12 + 180 + 20 - (window.innerHeight / 2);
+  const stage4Y = 48 + 12 + 180 + 20 - window.innerHeight / 2;
 
   return (
     <main className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden bg-bg-main">
@@ -57,8 +57,10 @@ export default function App() {
         <FloatingElements show={showFloating} />
 
         {/* ── Center stage: Envelope group ── */}
-        <div className="relative flex flex-col items-center z-10" style={{ perspective: "1000px" }}>
-
+        <div
+          className="relative flex flex-col items-center z-10"
+          style={{ perspective: "1000px" }}
+        >
           <AnimatePresence>
             {!isOpened && <BubbleHint visible key="bubble" />}
           </AnimatePresence>
@@ -84,7 +86,10 @@ export default function App() {
         {stage >= 2 && (
           <div
             className="absolute inset-0 flex items-center justify-center"
-            style={{ zIndex: stage >= 4 ? 50 : 20, pointerEvents: stage >= 4 ? "auto" : "none" }}
+            style={{
+              zIndex: stage >= 4 ? 50 : 20,
+              pointerEvents: stage >= 4 ? "auto" : "none",
+            }}
           >
             <motion.div
               className="flex justify-center"
@@ -92,10 +97,10 @@ export default function App() {
               initial={{ y: 120, scale: 0.8, opacity: 0 }}
               animate={
                 stage === 2
-                  ? { y: -290, scale: 0.7,  opacity: 1 }
+                  ? { y: -290, scale: 0.7, opacity: 1 }
                   : stage === 3
-                  ? { y: -130, scale: 0.64, opacity: 1 }
-                  : { y: stage4Y, scale: 1, opacity: 1 }
+                    ? { y: -130, scale: 0.64, opacity: 1 }
+                    : { y: stage4Y, scale: 1, opacity: 1 }
               }
               transition={{ duration: 0.8, ease: [0.34, 1.2, 0.64, 1] }}
             >
@@ -114,7 +119,7 @@ export default function App() {
             exit={{ opacity: 0, y: 10 }}
             transition={{ delay: 0.8, duration: 0.4 }}
             onClick={handleReset}
-            className="absolute bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium"
+            className="absolute bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-2 rounded-full text-base sm:text-lg font-medium"
             style={{
               background: "rgba(255,255,255,0.55)",
               backdropFilter: "blur(8px)",
@@ -123,11 +128,10 @@ export default function App() {
               boxShadow: "0 2px 12px rgba(180,80,100,0.12)",
             }}
           >
-            ↩ Xem lại
+            Xem lại
           </motion.button>
         )}
       </AnimatePresence>
-
     </main>
   );
 }
